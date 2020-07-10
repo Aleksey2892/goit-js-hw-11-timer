@@ -1,10 +1,17 @@
 const CountdownTimer = {
   selector: document.querySelector('#timer-1'),
-  secs: document.querySelector('span[data-value="secs"]'),
   targetDate: new Date('Jul 17, 2020'),
 };
 
-function timer() {
+const clockElemRefs = {
+  days: CountdownTimer.selector.querySelector('span[data-value="days"]'),
+  hours: CountdownTimer.selector.querySelector('span[data-value="hours"]'),
+  mins: CountdownTimer.selector.querySelector('span[data-value="mins"]'),
+  secs: CountdownTimer.selector.querySelector('span[data-value="secs"]'),
+};
+
+// FUNCTIONS
+(function timer() {
   const targetTime = CountdownTimer.targetDate.getTime();
 
   setInterval(() => {
@@ -14,40 +21,28 @@ function timer() {
 
     updateClock(deltaTime);
   }, 1000);
-}
-console.log(CountdownTimer.selector.querySelector('span[data-value="secs"]'));
-timer();
+})();
 
 function updateClock(time) {
-  /*
-   * Оставшиеся дни: делим значение UTC на 1000 * 60 * 60 * 24, количество
-   * миллисекунд в одном дне (миллисекунды * секунды * минуты * часы)
-   */
-  const days = pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+  // converting to clock
+  const days = helperPad(Math.floor(time / (1000 * 60 * 60 * 24)));
 
-  /*
-   * Оставшиеся часы: получаем остаток от предыдущего расчета с помощью оператора
-   * остатка % и делим его на количество миллисекунд в одном часе
-   * (1000 * 60 * 60 = миллисекунды * минуты * секунды)
-   */
-  const hours = pad(
+  const hours = helperPad(
     Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
   );
 
-  /*
-   * Оставшиеся минуты: получаем оставшиеся минуты и делим их на количество
-   * миллисекунд в одной минуте (1000 * 60 = миллисекунды * секунды)
-   */
-  const mins = pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+  const mins = helperPad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
 
-  /*
-   * Оставшиеся секунды: получаем оставшиеся секунды и делим их на количество
-   * миллисекунд в одной секунде (1000)
-   */
-  const secs = Math.floor((time % (1000 * 60)) / 1000);
-  console.log(`${days}:${hours}:${mins}:${secs}`);
+  const secs = helperPad(Math.floor((time % (1000 * 60)) / 1000));
+
+  // update clockface
+  clockElemRefs.days.textContent = days;
+  clockElemRefs.hours.textContent = hours;
+  clockElemRefs.mins.textContent = mins;
+  clockElemRefs.secs.textContent = secs;
 }
 
-function pad(val) {
+// helper
+function helperPad(val) {
   return String(val).padStart(2, '0');
 }
