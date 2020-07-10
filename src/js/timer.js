@@ -1,6 +1,6 @@
 const CountdownTimer = {
   selector: document.querySelector('#timer-1'),
-  targetDate: new Date('Jul 17, 2020'),
+  targetDate: new Date('Nov 28, 2020'), // my birthday
 };
 
 const clockElemRefs = {
