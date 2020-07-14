@@ -1,18 +1,25 @@
-const CountdownTimer = {
-  selector: document.querySelector('#timer-1'),
-  targetDate: new Date('Nov 28, 2020'), // my birthday
-};
+class CountdownTimer {
+  constructor({ selector, myBirthday }) {
+    this.selector = selector;
+    this.myBirthday = myBirthday;
+  }
+}
+
+const birthdayTimer = new CountdownTimer({
+  selector: '#timer-1',
+  myBirthday: new Date('Nov 28, 2020'), // my birthday
+});
 
 const clockElemRefs = {
-  days: CountdownTimer.selector.querySelector('span[data-value="days"]'),
-  hours: CountdownTimer.selector.querySelector('span[data-value="hours"]'),
-  mins: CountdownTimer.selector.querySelector('span[data-value="mins"]'),
-  secs: CountdownTimer.selector.querySelector('span[data-value="secs"]'),
+  days: document.querySelector('span[data-value="days"]'),
+  hours: document.querySelector('span[data-value="hours"]'),
+  mins: document.querySelector('span[data-value="mins"]'),
+  secs: document.querySelector('span[data-value="secs"]'),
 };
 
 // FUNCTIONS
 (function timer() {
-  const targetTime = CountdownTimer.targetDate.getTime();
+  const targetTime = birthdayTimer.myBirthday.getTime();
 
   setInterval(() => {
     const currentTime = Date.now();

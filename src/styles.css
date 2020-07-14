@@ -18,3 +18,25 @@ body {
    */
   /* background-image: url('./images/bg-pattern.png'); */
 }
+.name {
+  margin-bottom: 50px;
+}
+
+.timer {
+  text-align: center;
+}
+
+.field {
+  border: 1px solid black;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.label {
+  margin: 0;
+}
+
+.value {
+  color: maroon;
+  font-weight: 600;
+}
